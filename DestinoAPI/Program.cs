@@ -1,8 +1,12 @@
+using DestinoAPI.Services;
+using DestinoAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSqlite<DestinationContext>("Data Source=Destinations.db");
 
 var app = builder.Build();
 
@@ -23,6 +27,5 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
-;
 
 app.Run();
