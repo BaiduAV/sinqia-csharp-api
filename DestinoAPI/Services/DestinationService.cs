@@ -37,5 +37,19 @@ public class DestinationService
         return newDestination;
     }
     
+    public IEnumerable<Destination> FilteredDestinationByName(string query)
+    {
+        IEnumerable<Destination> AllEntries = _context.Destinations.AsNoTracking().OrderByDescending(d => d.Id).ToList();
+        IEnumerable<Destination> FilteredList = AllEntries.Where(d => d.Name.Contains(query));
+
+        return FilteredList;
+    }
     
+    public IEnumerable<Destination> FilteredDestinationByLocation(string query)
+    {
+        IEnumerable<Destination> AllEntries = _context.Destinations.AsNoTracking().OrderByDescending(d => d.Id).ToList();
+        IEnumerable<Destination> FilteredList = AllEntries.Where(d => d.City.Contains(query));
+
+        return FilteredList;
+    }
 }
