@@ -14,7 +14,7 @@ public class DestinationService
         _context = context;
     }
 
-    public IEnumerable<Destination> GetAll(int page=1)
+    public IEnumerable<Destination> GetAll(int page)
     {
         return _context.Destinations
             .AsNoTracking()
@@ -39,17 +39,17 @@ public class DestinationService
     
     public IEnumerable<Destination> FilteredDestinationByName(string query)
     {
-        IEnumerable<Destination> AllEntries = _context.Destinations.AsNoTracking().OrderByDescending(d => d.Id).ToList();
-        IEnumerable<Destination> FilteredList = AllEntries.Where(d => d.Name.Contains(query));
-
-        return FilteredList;
+        IEnumerable<Destination> allEntries = _context.Destinations.AsNoTracking().OrderByDescending(d => d.Id).ToList();
+        var filteredList = allEntries.Where(d => d.Name!.ToUpper().Contains(query.ToUpper()));
+    
+        return filteredList;
     }
     
     public IEnumerable<Destination> FilteredDestinationByLocation(string query)
     {
-        IEnumerable<Destination> AllEntries = _context.Destinations.AsNoTracking().OrderByDescending(d => d.Id).ToList();
-        IEnumerable<Destination> FilteredList = AllEntries.Where(d => d.City.Contains(query));
-
-        return FilteredList;
+        IEnumerable<Destination> allEntries = _context.Destinations.AsNoTracking().OrderByDescending(d => d.Id).ToList();
+        var filteredList = allEntries.Where(d => d.City!.ToUpper().Contains(query.ToUpper()));
+    
+        return filteredList;
     }
 }

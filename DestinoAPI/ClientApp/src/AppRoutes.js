@@ -1,5 +1,6 @@
-import { FetchData } from "./components/FetchData";
+import {AddNewDestination} from "./components/AddNewDestination";
 import { Home } from "./components/Home";
+import {FetchData} from "./components/FetchData";
 
 const AppRoutes = [
   {
@@ -7,8 +8,12 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/fetch-data',
+    path: '/destinations',
     element: <FetchData />
+  },
+  {
+    path: '/insert',
+    element: <AddNewDestination />
   }
 ];
 

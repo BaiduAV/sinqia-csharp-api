@@ -1,34 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {Button, Center, Heading, HStack, Stack, Text} from "@chakra-ui/react";
+import React from 'react';
+import {Button, Center, Heading, Stack, Text} from "@chakra-ui/react";
 
-export const FetchData = () => {
-
-  const [destinations, setDestinations] = useState([])
-  const [page, setPage] = useState(1)
-  
-  useEffect(() => {
-    const populateDestinations = async () => {
-      const response = await fetch(`https://localhost:7151/destinations?pageNumber=${page}`);
-      const data = await response.json()
-      setDestinations(data)
-    }
-    populateDestinations()
-  }, [page])
-
-  const nextPage = () => {
-    setPage(page + 1)
-  }
-
-  const previousPage = () => {
-    if (page > 1) {
-      setPage(page - 1)
-    }
-  }
-  
+export const SearchResults = ({destinations}) => {
+    
     return (
-        <Center
-        display={'flex'}
-        flexDirection={'column'}>
         <Center py={6}
         display={"flex"}
         flexDirection={"row"}
@@ -91,12 +66,6 @@ export const FetchData = () => {
               </Stack>)
             })
           }
-        </Center>
-          <HStack display={'flex'}
-                  justifyContent={'space-between'}>
-            {page > 1 ? <Button onClick={previousPage}>Página Anterior</Button> : null}
-            <Button onClick={nextPage}>Próxima Página</Button>
-          </HStack>
         </Center>
     )
   }

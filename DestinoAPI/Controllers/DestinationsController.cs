@@ -1,5 +1,6 @@
 ﻿using DestinoAPI.Models;
 using DestinoAPI.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DestinoAPI.Controllers;
@@ -14,7 +15,7 @@ public class DestinationsController : ControllerBase
     {
         _service = service;
     }
-
+    
     [HttpGet]
     public IEnumerable<Destination> GetAll(int pageNumber)
     {
@@ -30,6 +31,17 @@ public class DestinationsController : ControllerBase
             return destination;
         
         return NotFound();
+    }
+
+    [HttpGet("/search")]
+    public IEnumerable<Destination> Search(string filter)
+    {
+        var filterByLocation = _service.FilteredDestinationByLocation(filter);
+        var filterByName = _service.FilteredDestinationByName(filter);
+        var searchResults = filterByLocation.Union(filterByName);
+        
+        return searchResults;
+        
     }
 
     [HttpPost]
